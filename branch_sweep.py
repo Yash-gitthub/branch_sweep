@@ -15,8 +15,11 @@ def main():
     for branch in r:
         if branch not in protected:
             deletable.append(branch)
-    print(r)
-    print(protected)
-    print(deletable)
+    print("Deletable branches:")
+    c=1
+    for branch in deletable:
+        print(f"{c}. {branch}")
+        c+=1
+    action = input("Delete these branches? (Y/n): ")
 if __name__ == "__main__":
     main()
