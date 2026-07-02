@@ -25,7 +25,9 @@ def main():
         for branch in deletable:
             print("Deleted",branch)
             subprocess.run(["git", "branch", "-d", branch])
-    if action.lower() in ["n", "no"]:
+    elif action.lower() in ["n", "no"]:
         print("No branches deleted")
+    else:
+        print("no action recieved")
 if __name__ == "__main__":
     main()
