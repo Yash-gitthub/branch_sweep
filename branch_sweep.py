@@ -21,5 +21,11 @@ def main():
         print(f"{c}. {branch}")
         c+=1
     action = input("Delete these branches? (Y/n): ")
+    if action in "YESyesYes":
+        for branch in deletable:
+            print("Deleted",branch)
+            subprocess.run(["git", "branch", "-d", branch])
+    if action in "NONono":
+        print("No branches deleted")
 if __name__ == "__main__":
     main()
