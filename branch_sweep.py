@@ -23,17 +23,20 @@ def main():
             deletable.append(branch)
     print("Deletable branches:")
     c=1
-    for branch in deletable:
-        print(f"{c}. {branch}")
-        c+=1
-    action = input("Delete these branches? (Y/n): ")
-    if action.lower() in ["y", "yes"]:
-        for branch in deletable:
-            print("Deleted",branch)
-            subprocess.run(["git", "branch", "-d", branch])
-    elif action.lower() in ["n", "no"]:
-        print("No branches deleted")
+    if deletable == []:
+        print("nothing to delete")
     else:
-        print("no action recieved")
+        for branch in deletable:
+            print(f"{c}. {branch}")
+            c+=1
+        action = input("Delete these branches? (Y/n): ")
+        if action.lower() in ["y", "yes"]:
+            for branch in deletable:
+                print("Deleted",branch)
+                subprocess.run(["git", "branch", "-d", branch])
+        elif action.lower() in ["n", "no"]:
+            print("No branches deleted")
+        else:
+            print("no action recieved")
 if __name__ == "__main__":
     main()
