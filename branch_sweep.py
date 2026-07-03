@@ -1,7 +1,12 @@
 import subprocess
 def main():
     print("branch-sweep starting ...")
-    result = subprocess.run(["git","branch","--merged","master"], capture_output=True, text=True)
+    m_branch = subprocess.run(["git","branch"], capture_output=True, text=True)
+    if "main" in m_branch.stdout:
+        default_branch = "main"
+    else:
+        default_branch = "master"
+    result = subprocess.run(["git","branch","--merged",default_branch], capture_output=True, text=True)
     protected = []
     deletable = []
     current_branch = None
@@ -11,12 +16,8 @@ def main():
         if r[i].startswith("* "):
             r[i] = r[i][2:]
             current_branch = r[i]
-    m_branch = subprocess.run(["git","branch"], capture_output=True, text=True)
-    print(m_branch.stdout)
-    if "main" in m_branch.stdout or "master" in m_branch.stdout:
-        if m_branch.stdout.startswith("* "):
-            m_branch.stdout = m_branch.stdout[2:]
-    protected = [current_branch, m_branch.stdout]
+    protected = [current_branch, default_branch]
+    print(protected)
     for branch in r:
         if branch not in protected:
             deletable.append(branch)
