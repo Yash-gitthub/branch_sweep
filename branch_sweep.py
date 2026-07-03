@@ -11,7 +11,12 @@ def main():
         if r[i].startswith("* "):
             r[i] = r[i][2:]
             current_branch = r[i]
-    protected = [current_branch, "master", "main"]
+    m_branch = subprocess.run(["git","branch"], capture_output=True, text=True)
+    print(m_branch.stdout)
+    if "main" in m_branch.stdout or "master" in m_branch.stdout:
+        if m_branch.stdout.startswith("* "):
+            m_branch.stdout = m_branch.stdout[2:]
+    protected = [current_branch, m_branch.stdout]
     for branch in r:
         if branch not in protected:
             deletable.append(branch)
